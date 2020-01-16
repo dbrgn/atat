@@ -10,8 +10,6 @@ jobs:
   test_stable:
     name: Test (stable)
     runs-on: ubuntu-latest
-    env:
-      TARGET: thumbv7m-none-eabi
     steps:
       - uses: actions/checkout@v1
       - uses: actions-rs/toolchain@v1
@@ -23,13 +21,13 @@ jobs:
         with:
           command: build
           use-cross: true
-          args: --target $TARGET
+          args: --target thumbv7m-none-eabi
       - name: Ensure that examples compile
         uses: actions-rs/cargo@v1
         with:
           command: build
           use-cross: true
-          args: --examples --target $TARGET
+          args: --examples --target thumbv7m-none-eabi
       - name: Run tests
         uses: actions-rs/cargo@v1
         with:
