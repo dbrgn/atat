@@ -16,13 +16,13 @@ jobs:
         with:
           toolchain: stable
           override: true
-      - name: Ensure that library compiles
+      - name: Ensure that library compiles on ARMv7
         uses: actions-rs/cargo@v1
         with:
           command: build
           use-cross: true
           args: --target thumbv7m-none-eabi
-      - name: Ensure that examples compile
+      - name: Ensure that examples compile on ARMv7
         uses: actions-rs/cargo@v1
         with:
           command: build
@@ -33,22 +33,6 @@ jobs:
         with:
           command: test
           args: --tests --all-features
-
-  ensure_no_std:
-    name: Ensure crate is no_std
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-      - name: Download cargo-nono
-        run: |
-          wget https://github.com/hobofan/cargo-nono/releases/download/0.1.8/cargo-nono-0.1.8-x86_64-unknown-linux-gnu.tar.gz \
-            && tar xfvz cargo-nono-0.1.8-x86_64-unknown-linux-gnu.tar.gz
-      - name: Run check
-        run: ./cargo-nono check
 
   clippy:
     name: Run clippy
